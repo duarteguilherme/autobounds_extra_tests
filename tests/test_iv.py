@@ -46,15 +46,15 @@ def test_program_iv_late():
     p1late.set_estimand(
             p1late.query('Y(X=1)=1&X(Z=1)=1&X(Z=0)=0') + 
             p1late.query('Y(X=0)=1&X(Z=1)=1&X(Z=0)=0', -1),
-            cond = p1late.query('X(Z=1)=1&X(Z=0)=0'))
+            div = p1late.query('X(Z=1)=1&X(Z=0)=0'))
     p2late.set_estimand(
             p2late.query('Y(X=1)=1&X(Z=1)=1&X(Z=0)=0') + 
             p2late.query('Y(X=0)=1&X(Z=1)=1&X(Z=0)=0', -1),
-            cond = p2late.query('X(Z=1)=1&X(Z=0)=0'))
+            div = p2late.query('X(Z=1)=1&X(Z=0)=0'))
     p3late.set_estimand(
             p3late.query('Y(X=1)=1&X(Z=1)=1&X(Z=0)=0') + 
             p3late.query('Y(X=0)=1&X(Z=1)=1&X(Z=0)=0', -1),
-            cond = p3late.query('X(Z=1)=1&X(Z=0)=0'))
+            div = p3late.query('X(Z=1)=1&X(Z=0)=0'))
     p1late, p2late, p3late = p1late.write_program(), p2late.write_program(), p3late.write_program()
     p1_late_result = p1late.run_pyomo('ipopt')
     p2_late_result = p2late.run_pyomo('ipopt')
