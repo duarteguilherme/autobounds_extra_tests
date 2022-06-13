@@ -33,21 +33,21 @@ def test_program_iv_ate():
     p2ate.set_estimand(p2ate.query('Y(X=1)=1') + p2ate.query('Y(X=0)=1', -1))
     p3ate.set_estimand(p3ate.query('Y(X=1)=1') + p3ate.query('Y(X=0)=1', -1))
     p1ate, p2ate, p3ate = p1ate.write_program(), p2ate.write_program(), p3ate.write_program()
-    p1_ate_result = p1ate.run_pyomo('ipopt')
-    p2_ate_result = p2ate.run_pyomo('ipopt')
-    p3_ate_result = p3ate.run_pyomo('ipopt')
-    assert p1_ate_result[0] <= -0.05
-    assert p1_ate_result[0] >= -0.07
-    assert p1_ate_result[1] <= 0.3
-    assert p1_ate_result[1] >= 0.28
-    assert p2_ate_result[0] <= -0.42
-    assert p2_ate_result[0] >= -0.44
-    assert p2_ate_result[1] <= 0.57
-    assert p2_ate_result[1] >= 0.55
-    assert p3_ate_result[0] <= -0.05
-    assert p3_ate_result[0] >= -0.07
-    assert p3_ate_result[1] <= 0.3
-    assert p3_ate_result[1] >= 0.28
+    p1_ate_result = p1ate.run_couenne()
+    p2_ate_result = p2ate.run_couenne()
+    p3_ate_result = p3ate.run_couenne()
+    assert p1_ate_result[0]['dual'] <= -0.05
+    assert p1_ate_result[0]['dual'] >= -0.07
+    assert p1_ate_result[1]['dual'] <= 0.3
+    assert p1_ate_result[1]['dual'] >= 0.28
+    assert p2_ate_result[0]['dual'] <= -0.42
+    assert p2_ate_result[0]['dual'] >= -0.44
+    assert p2_ate_result[1]['dual'] <= 0.57
+    assert p2_ate_result[1]['dual'] >= 0.55
+    assert p3_ate_result[0]['dual'] <= -0.05
+    assert p3_ate_result[0]['dual'] >= -0.07
+    assert p3_ate_result[1]['dual'] <= 0.3
+    assert p3_ate_result[1]['dual'] >= 0.28
 
 def test_program_iv_late():
     p1late, p2late, p3late = return_iv_problems()
@@ -64,19 +64,18 @@ def test_program_iv_late():
             p3late.query('Y(X=0)=1&X(Z=1)=1&X(Z=0)=0', -1),
             div = p3late.query('X(Z=1)=1&X(Z=0)=0'))
     p1late, p2late, p3late = p1late.write_program(), p2late.write_program(), p3late.write_program()
-    p1_late_result = p1late.run_pyomo('ipopt')
-    p2_late_result = p2late.run_pyomo('ipopt')
-    p3_late_result = p3late.run_pyomo('ipopt')
-    print(p3_late_result)
-    assert p1_late_result[0] <= 0.04
-    assert p1_late_result[0] >= 0.02
-    assert p1_late_result[1] <= 0.25
-    assert p1_late_result[1] >= 0.23
-    assert p2_late_result[0] <= -0.54
-    assert p2_late_result[0] >= -0.56
-    assert p2_late_result[1] <= 0.71
-    assert p2_late_result[1] >= 0.69
-    assert p3_late_result[0] <= 0.15
-    assert p3_late_result[0] >= 0.13
-    assert p3_late_result[1] <= 0.15
-    assert p3_late_result[1] >= 0.13
+    p1_late_result = p1late.run_couenne()
+    p2_late_result = p2late.run_couenne()
+        p3_late_result = p3late.run_couenne()
+    assert p1_late_result[0]['dual'] <= 0.04
+    assert p1_late_result[0]['dual'] >= 0.02
+    assert p1_late_result[1]['dual'] <= 0.25
+    assert p1_late_result[1]['dual'] >= 0.23
+    assert p2_late_result[0]['dual'] <= -0.54
+    assert p2_late_result[0]['dual'] >= -0.56
+    assert p2_late_result[1]['dual'] <= 0.71
+    assert p2_late_result[1]['dual'] >= 0.69
+    assert p3_late_result[0]['dual'] <= 0.15
+    assert p3_late_result[0]['dual'] >= 0.13
+    assert p3_late_result[1]['dual'] <= 0.15
+    assert p3_late_result[1]['dual'] >= 0.13
